@@ -6,10 +6,31 @@ Parameters:
     Description: My bucket name
     Type: String
     Default: mikko-demo-fall-22-cf
+  QueName:
+    Description: Name for que
+    Type: String
+    Default: mikko-que-academy-asd
+  LatestAmiId:
+    Description: Name for latest ami
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+  
 
 Resources:
   MyBucketResources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref MyBucketName
+  MyQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Ref QueName
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref LatestAmiId
+      InstanceType: t3.micro
+      Tags:
+        - Key: 'Name'
+          Value: 'demo-ec2'
 
