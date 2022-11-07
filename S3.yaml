@@ -1,1 +1,15 @@
-AWSTemplateForm
+AWSTemplateFormatVersion: 2010-09-09
+Description: Demo s3 bucket
+
+Parameters:
+  MyBucketName:
+    Description: My bucket name
+    Type: String
+    Default: mikko-demo-fall-22-cf
+
+Resources:
+  MyBucketResources:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref MyBucketName
+
